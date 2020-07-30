@@ -1,0 +1,21 @@
+{
+    "name": "grischenko/testing",
+    "description": "task4",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Eduard Grischenko",
+            "email": "eduardgrischenko@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "guzzlehttp/guzzle": "^7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "testing4\\": ""
+        }
+    }
+}

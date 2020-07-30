@@ -1,0 +1,25 @@
+5. Выполнить запросы к данной БД. Исходные данные: изначально у всех людей из таблицы persons было по 100 рублей. 
+Передача денег из таблицы transactions отражает кто (from) кому(to) сколько денег передал.
+
+а) написать запрос, который бы выводил полное имя и баланс человека на данный момент
+
+SELECT fullname, IFNULL(100 - SUM(IFNULL(from_person.amount,0)) + SUM(IFNULL(to_person.amount,0)), 100) as balance FROM persons
+LEFT JOIN transactions AS to_person ON persons.id = to_person.to_person_id
+LEFT JOIN transactions AS from_person ON persons.id = from_person.from_person_id
+GROUP BY persons.id
+
+б) написать запрос, который бы выводил город, представители которого участвовали в передаче денег наибольшее количество раз
+
+SELECT cities.name, COUNT(name) as money FROM transactions
+INNER JOIN persons ON transactions.from_person_id=persons.id or transactions.to_person_id = persons.id
+INNER JOIN cities ON persons.city_id = cities.id
+GROUP BY cities.name
+ORDER BY money DESC
+LIMIT 1
+
+в) написать запрос, отражающий все транзакции, где передача денег осуществлялась между представителями одного города
+
+SELECT cities.name FROM transactions
+INNER JOIN persons AS from_person ON transactions.from_person_id = from_person.id
+INNER JOIN persons AS to_person ON transactions.to_person_id = to_person.id
+INNER JOIN cities ON from_person.city_id = cities.id AND to_person.city_id = cities.id
