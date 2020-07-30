@@ -2,5 +2,5 @@
 
 require_once 'Sort.php';
 
-$obj = new Sort();
-$obj->sorting($argv[1]);
+$sorter = new Sort();
+$sorter->sorting($argv[1] ?? "");
